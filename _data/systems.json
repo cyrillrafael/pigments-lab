@@ -18,11 +18,11 @@
     "status": "live"
   },
   {
-    "name": "Studio assistant (chat backend)",
+    "name": "Studio assistant + voice-note backend",
     "url": "https://pigments-lab-chat.vercel.app",
-    "hosting": "Vercel Function",
-    "repo": "not yet in git — local only, pending a decision on where it should live",
-    "deploy": "vercel deploy (manual, from this session)",
+    "hosting": "Vercel Functions (2: /api/chat, /api/note)",
+    "repo": "cyrillrafael/pigments-lab-chat (private)",
+    "deploy": "vercel deploy (manual, from this session — not yet wired to auto-deploy on push)",
     "auth": "Vercel AI Gateway via OIDC — no manually-issued API key. CORS-restricted to the pigments-lab origin only.",
     "status": "blocked — needs a credit card on the Vercel account before the Gateway will serve requests"
   },
