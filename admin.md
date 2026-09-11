@@ -14,11 +14,23 @@ permalink: /admin/
 </div>
 
 <div id="gate" class="gate">
-  <form id="gate-form">
-    <input type="password" id="gate-password" placeholder="Password" autocomplete="off" />
-    <button type="submit">Enter</button>
-    <div class="error" id="gate-error"></div>
-  </form>
+  <div class="iris">
+    <div class="seg" data-dir="up-left"></div>
+    <div class="seg" data-dir="up"></div>
+    <div class="seg" data-dir="up-right"></div>
+    <div class="seg" data-dir="left"></div>
+    <div class="seg seg-center" data-dir="center">
+      <form id="gate-form" class="gate-form-wrap">
+        <input type="password" id="gate-password" placeholder="Password" autocomplete="off" />
+        <button type="submit">Enter</button>
+        <div class="error" id="gate-error"></div>
+      </form>
+    </div>
+    <div class="seg" data-dir="right"></div>
+    <div class="seg" data-dir="down-left"></div>
+    <div class="seg" data-dir="down"></div>
+    <div class="seg" data-dir="down-right"></div>
+  </div>
 </div>
 
 <div id="upload-panel" hidden>

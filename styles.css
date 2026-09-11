@@ -122,12 +122,59 @@ a:hover {
 
 /* Admin: password gate + upload form */
 .gate {
-  max-width: 360px;
-  margin: 4em auto;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.iris {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.iris .seg {
+  background: linear-gradient(to bottom, white, lightgray);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: transform 0.55s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.5s ease;
+}
+
+.iris .seg-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1) 0.12s, opacity 0.45s ease 0.12s;
+}
+
+/* unlocking: outer eight blades slide outward first, center shrinks a beat later */
+#gate.unlocking .seg[data-dir="up"]         { transform: translateY(-120%); }
+#gate.unlocking .seg[data-dir="down"]       { transform: translateY(120%); }
+#gate.unlocking .seg[data-dir="left"]       { transform: translateX(-120%); }
+#gate.unlocking .seg[data-dir="right"]      { transform: translateX(120%); }
+#gate.unlocking .seg[data-dir="up-left"]    { transform: translate(-120%, -120%); }
+#gate.unlocking .seg[data-dir="up-right"]   { transform: translate(120%, -120%); }
+#gate.unlocking .seg[data-dir="down-left"]  { transform: translate(-120%, 120%); }
+#gate.unlocking .seg[data-dir="down-right"] { transform: translate(120%, 120%); }
+#gate.unlocking .seg-center                 { transform: scale(0.2); opacity: 0; }
+
+#gate.unlocked { display: none; }
+
+.gate-form-wrap {
+  max-width: 300px;
   padding: 2em;
   text-align: center;
-  background: rgba(255,255,255,0.85);
-  border-radius: 6px;
+}
+
+#upload-panel {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#upload-panel.visible {
+  opacity: 1;
 }
 
 .gate input[type="password"],

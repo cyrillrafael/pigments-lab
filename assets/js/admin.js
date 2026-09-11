@@ -19,21 +19,32 @@ async function tryUnlock() {
   const pw = document.getElementById("gate-password").value;
   const hash = await sha256Hex(pw);
   const errEl = document.getElementById("gate-error");
+  const gate = document.getElementById("gate");
   if (hash === window.ADMIN_PASSWORD_HASH) {
     sessionStorage.setItem("admin-unlocked", "1");
-    document.getElementById("gate").hidden = true;
-    document.getElementById("upload-panel").hidden = false;
-    populateResidencies();
+    errEl.textContent = "";
+    revealUploadPanel();
+    gate.classList.add("unlocking");
+    // matches the CSS transition duration + delay (0.55s + 0.12s)
+    setTimeout(() => { gate.hidden = true; }, 700);
   } else {
     errEl.textContent = "Wrong password.";
   }
 }
 
+function revealUploadPanel() {
+  const panel = document.getElementById("upload-panel");
+  panel.hidden = false;
+  requestAnimationFrame(() => panel.classList.add("visible"));
+  populateResidencies();
+}
+
 function checkExistingUnlock() {
   if (sessionStorage.getItem("admin-unlocked") === "1") {
+    // already unlocked this session (e.g. page reload) — skip the animation
     document.getElementById("gate").hidden = true;
-    document.getElementById("upload-panel").hidden = false;
-    populateResidencies();
+    revealUploadPanel();
+    document.getElementById("upload-panel").classList.add("visible");
   }
 }
 
