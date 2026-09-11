@@ -61,6 +61,15 @@ permalink: /admin/
     <button type="submit">Upload</button>
     <div class="upload-status" id="upload-status"></div>
   </form>
+
+  <h3>Studio Assistant</h3>
+  <div id="chat-widget">
+    <div id="chat-log"></div>
+    <form id="chat-form">
+      <input type="text" id="chat-input" placeholder="Ask something…" autocomplete="off" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
 </div>
 
 <script>
@@ -68,3 +77,4 @@ permalink: /admin/
   window.RESIDENCIES = {{ site.data.residencies | jsonify }};
 </script>
 <script src="{{ '/assets/js/admin.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/chat-widget.js' | relative_url }}"></script>
