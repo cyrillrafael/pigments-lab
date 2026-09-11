@@ -400,6 +400,123 @@ h3 {
   color: #333;
 }
 
+/* Voice note -> outline widget */
+#note-widget {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.note-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  flex-wrap: wrap;
+  margin-bottom: 0.8em;
+}
+
+#note-record-btn {
+  font-family: 'Menlo', 'Courier New', monospace;
+  font-size: 0.95rem;
+  padding: 0.5em 1em;
+  border: 1px solid #a00;
+  border-radius: 3px;
+  background: #fff;
+  color: #a00;
+  cursor: pointer;
+}
+
+#note-record-btn:hover {
+  background: rgba(170, 0, 0, 0.08);
+}
+
+#note-record-time {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.note-upload-label {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+#note-preview {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.8em;
+}
+
+#note-transcribe-btn,
+#note-save-btn {
+  font-family: 'Menlo', 'Courier New', monospace;
+  font-size: 0.95rem;
+  padding: 0.5em 1em;
+  border: 1px solid #333;
+  border-radius: 3px;
+  background: #fff;
+  cursor: pointer;
+}
+
+#note-transcribe-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+#note-transcribe-btn:hover:not(:disabled),
+#note-save-btn:hover {
+  background: #eee;
+}
+
+.note-status,
+.note-save-status {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 0.5em;
+  white-space: pre-wrap;
+}
+
+.note-transcript-details {
+  margin: 1em 0;
+  font-size: 0.85rem;
+}
+
+.note-transcript {
+  white-space: pre-wrap;
+  color: #444;
+  margin-top: 0.5em;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#note-outline {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Menlo', 'Courier New', monospace;
+  font-size: 0.85rem;
+  padding: 0.6em;
+  border: 1px solid #999;
+  border-radius: 3px;
+  margin-bottom: 0.8em;
+}
+
+#note-result label {
+  display: block;
+  font-size: 0.85rem;
+  color: #444;
+  margin-bottom: 0.2em;
+}
+
+#note-title,
+#note-residency-select {
+  font-family: 'Menlo', 'Courier New', monospace;
+  font-size: 0.9rem;
+  padding: 0.4em;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #999;
+  border-radius: 3px;
+  margin-bottom: 0.8em;
+}
+
 .gate input[type="password"],
 .gate input[type="text"],
 .upload-form input,

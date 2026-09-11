@@ -71,6 +71,43 @@ permalink: /admin/
     </form>
   </div>
 
+  <h3>Voice Note → Outline</h3>
+  <p class="lede">
+    Record or upload a voice memo. It's transcribed and turned into a draft
+    outline with marked actionables — review and edit before saving; nothing
+    is written to the repo until you confirm.
+  </p>
+  <div id="note-widget">
+    <div class="note-controls">
+      <button type="button" id="note-record-btn">● Record</button>
+      <span id="note-record-time">00:00</span>
+      <label for="note-file-input" class="note-upload-label">or upload a file</label>
+      <input type="file" id="note-file-input" accept="audio/*" />
+    </div>
+    <audio id="note-preview" controls hidden></audio>
+    <button type="button" id="note-transcribe-btn" disabled>Transcribe &amp; Outline</button>
+    <div class="note-status" id="note-status"></div>
+
+    <div id="note-result" hidden>
+      <details class="note-transcript-details">
+        <summary>Raw transcript</summary>
+        <div class="note-transcript" id="note-transcript"></div>
+      </details>
+
+      <label for="note-outline">Outline (edit freely — confirm, correct, or argue with it before saving)</label>
+      <textarea id="note-outline" rows="14"></textarea>
+
+      <label for="note-title">Title</label>
+      <input type="text" id="note-title" placeholder="e.g. 2026-09-11 voice note" />
+
+      <label for="note-residency-select">Residency / journey</label>
+      <select id="note-residency-select"></select>
+
+      <button type="button" id="note-save-btn">Save to Reports</button>
+      <div class="note-save-status" id="note-save-status"></div>
+    </div>
+  </div>
+
   <h3>Systems &amp; Access</h3>
   <p class="lede">
     What's actually deployed, where, and how each piece authenticates —
@@ -104,3 +141,4 @@ permalink: /admin/
 </script>
 <script src="{{ '/assets/js/admin.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/chat-widget.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/note-widget.js' | relative_url }}"></script>
