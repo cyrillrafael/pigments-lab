@@ -328,6 +328,78 @@ h3 {
   background: rgba(0,0,0,0.05);
 }
 
+/* Systems & Access map */
+.systems-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.system-card {
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.55);
+  padding: 0.9em 1em;
+}
+
+.system-name {
+  font-weight: bold;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  flex-wrap: wrap;
+}
+
+.system-status {
+  font-size: 0.68rem;
+  font-weight: normal;
+  padding: 0.15em 0.5em;
+  border-radius: 3px;
+  background: rgba(0,0,0,0.08);
+  color: #444;
+}
+
+.system-status-live {
+  background: rgba(0,140,0,0.12);
+  color: #0a6b0a;
+}
+
+.system-status-blocked {
+  background: rgba(200,120,0,0.15);
+  color: #8a5300;
+}
+
+.system-status-unverified {
+  background: rgba(150,0,0,0.1);
+  color: #8a0000;
+}
+
+.system-url {
+  font-size: 0.78rem;
+  margin: 0.3em 0 0.6em;
+}
+
+.system-card dl {
+  margin: 0;
+  font-size: 0.78rem;
+  display: grid;
+  grid-template-columns: 5.5em 1fr;
+  row-gap: 0.3em;
+  column-gap: 0.6em;
+}
+
+.system-card dt {
+  color: #666;
+}
+
+.system-card dd {
+  margin: 0;
+  color: #333;
+}
+
 .gate input[type="password"],
 .gate input[type="text"],
 .upload-form input,

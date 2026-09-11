@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Portfolio site",
+    "url": "https://cyrillrafael.org",
+    "hosting": "GitHub Pages (custom domain)",
+    "repo": "cyrillrafael/cyrillrafael.github.io",
+    "deploy": "GitHub Actions: Test and Deploy → Deploy Jekyll site to Pages (gated — deploy only runs after tests pass)",
+    "auth": "Fine-grained GitHub PAT (Contents: read/write, scoped to this repo only). Held locally, never committed.",
+    "status": "live"
+  },
+  {
+    "name": "Pigments Lab",
+    "url": "https://cyrillrafael.github.io/pigments-lab/",
+    "hosting": "GitHub Pages (project site, no custom domain yet)",
+    "repo": "cyrillrafael/pigments-lab",
+    "deploy": "GitHub Actions: Deploy Jekyll site to Pages, on push to main",
+    "auth": "Same GitHub PAT for our own pushes. The admin console itself uses a separate client-side password (obscurity only, not real auth) plus a GitHub token pasted in per-session by whoever is uploading — never stored.",
+    "status": "live"
+  },
+  {
+    "name": "Studio assistant (chat backend)",
+    "url": "https://pigments-lab-chat.vercel.app",
+    "hosting": "Vercel Function",
+    "repo": "not yet in git — local only, pending a decision on where it should live",
+    "deploy": "vercel deploy (manual, from this session)",
+    "auth": "Vercel AI Gateway via OIDC — no manually-issued API key. CORS-restricted to the pigments-lab origin only.",
+    "status": "blocked — needs a credit card on the Vercel account before the Gateway will serve requests"
+  },
+  {
+    "name": "Claude GitHub App (for automated upload processing)",
+    "url": null,
+    "hosting": "claude.ai routines infrastructure",
+    "repo": "would target cyrillrafael/pigments-lab",
+    "deploy": "not yet created",
+    "auth": "GitHub App install on cyrillrafael's account, scoped to pigments-lab",
+    "status": "unverified — reported installed, not yet confirmed from this session"
+  }
+]

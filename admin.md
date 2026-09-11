@@ -70,6 +70,32 @@ permalink: /admin/
       <button type="submit">Send</button>
     </form>
   </div>
+
+  <h3>Systems &amp; Access</h3>
+  <p class="lede">
+    What's actually deployed, where, and how each piece authenticates —
+    not a real key-issuance system, just an honest map so nothing here
+    stays tribal knowledge. No secret values are ever shown here, only
+    what kind of credential each system needs and where it's held.
+  </p>
+  <div class="systems-list">
+    {% for s in site.data.systems %}
+    <div class="system-card">
+      <div class="system-name">
+        {{ s.name }}
+        {%- assign status_word = s.status | split: ' ' | first | downcase -%}
+        <span class="system-status system-status-{{ status_word }}">{{ s.status }}</span>
+      </div>
+      {% if s.url %}<div class="system-url"><a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.url }} ↗</a></div>{% endif %}
+      <dl>
+        <dt>Repo</dt><dd>{{ s.repo }}</dd>
+        <dt>Hosting</dt><dd>{{ s.hosting }}</dd>
+        <dt>Deploy</dt><dd>{{ s.deploy }}</dd>
+        <dt>Auth</dt><dd>{{ s.auth }}</dd>
+      </dl>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 
 <script>
