@@ -120,6 +120,71 @@ a:hover {
   font-style: italic;
 }
 
+/* Pigment index / palette */
+h3 {
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+  font-size: 1.05rem;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  padding-bottom: 0.2em;
+}
+
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1.2em;
+  margin-bottom: 1em;
+}
+
+.swatch-card {
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 6px;
+  padding: 0.8em;
+  display: flex;
+  flex-direction: column;
+}
+
+.swatch {
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  margin-bottom: 0.6em;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.swatch-name {
+  font-weight: bold;
+  font-size: 0.95rem;
+  margin-bottom: 0.15em;
+}
+
+.swatch-source {
+  font-size: 0.75rem;
+  color: #555;
+  font-style: italic;
+  margin-bottom: 0.4em;
+}
+
+.swatch-formula {
+  font-size: 0.8rem;
+  color: #222;
+  margin-bottom: 0.5em;
+}
+
+.swatch-note {
+  font-size: 0.75rem;
+  color: #444;
+  line-height: 1.4;
+  margin-bottom: 0.6em;
+  flex-grow: 1;
+}
+
+.swatch-link {
+  font-size: 0.75rem;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding-top: 0.4em;
+}
+
 /* Admin: password gate + upload form */
 .gate {
   position: fixed;
@@ -148,8 +213,12 @@ a:hover {
 
 .iris .seg-center {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow-y: auto;
+  padding: 1em;
+  box-sizing: border-box;
   transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1) 0.12s, opacity 0.45s ease 0.12s;
 }
 

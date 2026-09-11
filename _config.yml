@@ -10,6 +10,8 @@ nav_links:
     url: "/"
   - title: "Pigments"
     url: "/pigments/"
+  - title: "Palette"
+    url: "/palette/"
   - title: "Sketchbooks"
     url: "/sketchbooks/"
   - title: "Workshop"

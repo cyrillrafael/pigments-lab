@@ -1,0 +1,132 @@
+[
+  {
+    "name": "Indigo",
+    "category": "plant",
+    "source": "Indigofera tinctoria",
+    "formula": "C16H10N2O2 (indigotin)",
+    "note": "Leuco-indigo is water-soluble and colorless; the vat-dyeing process relies on enzymatic/alkaline reduction, then air-oxidizes back to insoluble indigotin as it dries — the same chromophore as woad, just far more concentrated in the leaf.",
+    "hex": "#1b2e5c",
+    "link": "https://cameo.mfa.org/wiki/Indigo",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Madder",
+    "category": "plant",
+    "source": "Rubia tinctorum root",
+    "formula": "C14H8O4 (alizarin)",
+    "note": "An anthraquinone dye; needs a mordant (historically alum) to bind fast to fiber — the metal ion bridges the alizarin's hydroxyl groups to the substrate, which is also what shifts the hue depending on which mordant is used.",
+    "hex": "#a0323c",
+    "link": "https://cameo.mfa.org/wiki/Madder",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Woad",
+    "category": "plant",
+    "source": "Isatis tinctoria",
+    "formula": "C16H10N2O2 (indigotin)",
+    "note": "Chemically identical chromophore to indigo, just at much lower concentration in the leaf — Europe's blue before Indigofera imports made true indigo cheaper than growing woad at scale.",
+    "hex": "#33507a",
+    "link": "https://cameo.mfa.org/wiki/Woad",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Malachite",
+    "category": "mineral",
+    "source": "basic copper carbonate ore",
+    "formula": "Cu2CO3(OH)2",
+    "note": "Forms naturally alongside azurite — same copper-carbonate chemistry, different hydroxyl ratio and crystal structure, which is why the two so often occur banded together in the same ore.",
+    "hex": "#3b7a57",
+    "link": "https://cameo.mfa.org/wiki/Malachite",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Azurite",
+    "category": "mineral",
+    "source": "basic copper carbonate ore",
+    "formula": "Cu3(CO3)2(OH)2",
+    "note": "Azurite is metastable relative to malachite — given enough moisture and time it will slowly convert to malachite, which is part of why blue passages in old paintings sometimes turn green.",
+    "hex": "#3f6fa8",
+    "link": "https://cameo.mfa.org/wiki/Azurite",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Cinnabar / Vermilion",
+    "category": "mineral",
+    "source": "mercury(II) sulfide ore",
+    "formula": "HgS",
+    "note": "Native cinnabar is the mineral; vermilion is the same compound made synthetically (mercury + sulfur, heated). Both are prone to darkening with prolonged light exposure as the stable red α-form converts toward the black β-form.",
+    "hex": "#d6381f",
+    "link": "https://cameo.mfa.org/wiki/Cinnabar",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Yellow ochre",
+    "category": "mineral",
+    "source": "iron-oxide clay earth",
+    "formula": "FeO(OH)·nH2O (goethite) + clay",
+    "note": "One of the oldest pigments in continuous use — hydrated iron oxide bound in clay. Heat it and the goethite dehydrates to hematite (Fe2O3), turning the same earth from yellow to red: this is literally how burnt sienna is made from raw sienna.",
+    "hex": "#cc9a3a",
+    "link": "https://cameo.mfa.org/wiki/Yellow_ocher",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Ultramarine (natural)",
+    "category": "mineral",
+    "source": "lapis lazuli (lazurite)",
+    "formula": "Na8-10Al6Si6O24S2-4",
+    "note": "The blue comes from a sulfur radical anion (S3−) trapped in the aluminosilicate cage — not a metal-oxide chromophore at all, which is unusual among mineral pigments. Extracting the lazurite from lapis's matrix of calcite and pyrite was so laborious it made this the most expensive pigment in painting for centuries.",
+    "hex": "#1b2a85",
+    "link": "https://cameo.mfa.org/wiki/Ultramarine_blue,_natural",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Prussian blue",
+    "category": "synthetic",
+    "source": "synthesized 1704–1706, Berlin",
+    "formula": "Fe4[Fe(CN)6]3",
+    "note": "The first modern synthetic pigment, discovered by accident (a contaminated potash batch in a dye workshop). An iron(III) ferrocyanide complex — deep, lightfast, and far cheaper than natural ultramarine, which is part of why it displaced it so quickly.",
+    "hex": "#14274e",
+    "link": "https://cameo.mfa.org/wiki/Prussian_blue",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Ultramarine (synthetic)",
+    "category": "synthetic",
+    "source": "Guimet, France, 1826",
+    "formula": "Na8-10Al6Si6O24S2-4",
+    "note": "Same lazurite structure and same S3− chromophore as the natural mineral, made industrially from kaolin, soda, sulfur and charcoal instead of ground lapis — a direct synthetic analog rather than a new chemistry, which is why it reads identically to the eye.",
+    "hex": "#1b2a85",
+    "link": "https://cameo.mfa.org/wiki/Ultramarine_blue,_synthetic",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Phthalocyanine blue",
+    "category": "synthetic",
+    "source": "first characterized 1933",
+    "formula": "C32H16CuN8 (copper phthalocyanine)",
+    "note": "A copper ion held in a large, flat, aromatic macrocycle — extremely stable and intensely tinting (a little goes a long way), which makes it easy to overshoot in a mix.",
+    "hex": "#0a3161",
+    "link": "https://cameo.mfa.org/wiki/Phthalocyanine_blue",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Cadmium red",
+    "category": "synthetic",
+    "source": "cadmium sulfoselenide, industrial",
+    "formula": "CdS·CdSe (solid solution)",
+    "note": "Pure cadmium sulfide (CdS) is yellow; substituting selenium for sulfur in the crystal lattice shifts the absorption edge and pushes the color through orange toward red — the ratio of S to Se tunes exactly where in that range it lands.",
+    "hex": "#e2231a",
+    "link": "https://cameo.mfa.org/wiki/Cadmium_red",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Titanium white",
+    "category": "synthetic",
+    "source": "industrial, early 20th c.",
+    "formula": "TiO2 (rutile or anatase)",
+    "note": "The highest refractive index of any white pigment in use, which is why it has such enormous opacity/hiding power per gram — it displaced lead white largely on toxicity grounds, but its scattering physics is genuinely better too.",
+    "hex": "#fafaf8",
+    "link": "https://cameo.mfa.org/wiki/Titanium_white",
+    "link_label": "CAMEO (MFA Boston)"
+  }
+]

@@ -114,11 +114,21 @@ async function putFile(path, base64Content, message, token, sha) {
     headers: { ...authHeaders(token), "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
-  if (!res.ok) throw new Error(`PUT ${path} failed: ${res.status} ${await res.text()}`);
+  if (!res.ok) {
+    const err = new Error(`PUT ${path} failed: ${res.status} ${await res.text()}`);
+    err.status = res.status;
+    throw err;
+  }
   return res.json();
 }
 
-async function appendToManifest(manifestPath, entry, token) {
+// Read-modify-write on a small JSON manifest. If another upload racing the
+// same file wins the commit first, the sha we read is now stale and GitHub
+// rejects the PUT with 409/422 -- re-read and retry once rather than
+// silently losing this entry (the image file itself is already committed
+// by this point, so losing the manifest entry would orphan it from the
+// gallery/reports list).
+async function appendToManifest(manifestPath, entry, token, attempt = 0) {
   const existing = await getFile(manifestPath, token);
   let list = [];
   let sha;
@@ -128,7 +138,14 @@ async function appendToManifest(manifestPath, entry, token) {
   }
   list.push(entry);
   const newContent = textToBase64(JSON.stringify(list, null, 2) + "\n");
-  await putFile(manifestPath, newContent, `Add ${entry.file} to ${manifestPath}`, token, sha);
+  try {
+    await putFile(manifestPath, newContent, `Add ${entry.file} to ${manifestPath}`, token, sha);
+  } catch (e) {
+    if ((e.status === 409 || e.status === 422) && attempt < 2) {
+      return appendToManifest(manifestPath, entry, token, attempt + 1);
+    }
+    throw e;
+  }
 }
 
 async function ensureResidency(slug, label, token) {

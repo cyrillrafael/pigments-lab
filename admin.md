@@ -4,15 +4,6 @@ title: Admin
 permalink: /admin/
 ---
 
-<div class="warn-box">
-  This page is not real security — it's a password screen implemented in
-  browser JavaScript, visible to anyone who views the page source. It keeps
-  casual visitors out; it does not protect against anyone determined. The
-  actual boundary is the GitHub token pasted in below: only someone holding
-  a token with write access to this repo can commit anything, regardless of
-  the password.
-</div>
-
 <div id="gate" class="gate">
   <div class="iris">
     <div class="seg" data-dir="up-left"></div>
@@ -20,6 +11,14 @@ permalink: /admin/
     <div class="seg" data-dir="up-right"></div>
     <div class="seg" data-dir="left"></div>
     <div class="seg seg-center" data-dir="center">
+      <div class="warn-box">
+        Not real security — this password check runs in browser
+        JavaScript, visible to anyone who views the page source. It keeps
+        casual visitors out, not anyone determined. The actual boundary is
+        the GitHub token pasted in on the next screen: only someone
+        holding a token with write access to this repo can commit
+        anything, regardless of this password.
+      </div>
       <form id="gate-form" class="gate-form-wrap">
         <input type="password" id="gate-password" placeholder="Password" autocomplete="off" />
         <button type="submit">Enter</button>
@@ -48,9 +47,7 @@ permalink: /admin/
     </select>
 
     <label for="residency-select">Residency / journey</label>
-    <select id="residency-select">
-      <option value="general">General / Studio</option>
-    </select>
+    <select id="residency-select"></select>
 
     <label for="new-residency">…or add a new one (leave blank otherwise)</label>
     <input type="text" id="new-residency" placeholder="e.g. Somewhere 2027" />
