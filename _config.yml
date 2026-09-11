@@ -12,6 +12,8 @@ nav_links:
     url: "/pigments/"
   - title: "Palette"
     url: "/palette/"
+  - title: "Materials"
+    url: "/materials/"
   - title: "Sketchbooks"
     url: "/sketchbooks/"
   - title: "Workshop"

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Linseed oil",
+    "category": "binder",
+    "composition": "triglyceride of linolenic/linoleic/oleic acids",
+    "drying": "touch-dry 1–3 days; full oxidative cure weeks to months",
+    "note": "Dries by oxidative polymerization — crosslinking with atmospheric oxygen, not solvent evaporation — which is why a thick 'fat' layer can stay soft under a dry skin for a long time. Stand oil (heat-polymerized) dries slower than raw/cold-pressed but levels out brush marks and yellows less.",
+    "hex": "#d9b04a",
+    "link": "https://cameo.mfa.org/wiki/Linseed_oil",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Turpentine",
+    "category": "solvent",
+    "composition": "steam-distilled pine resin (mainly α-/β-pinene)",
+    "drying": "evaporates in minutes to ~1–2 hours",
+    "note": "A pure thinner, not a binder — it does nothing to the paint film chemically, it just evaporates. Used to lean-out early layers under the fat-over-lean rule, and for brush cleaning. Mineral-spirit 'turpentine substitute' is a lower-odor, lower-toxicity petroleum alternative doing the same job.",
+    "hex": "#f2ecd8",
+    "link": "https://cameo.mfa.org/wiki/Turpentine_(oil)",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Dammar varnish",
+    "category": "varnish",
+    "composition": "dammar resin dissolved in turpentine",
+    "drying": "sets in hours (solvent evaporation only)",
+    "note": "Unlike an oil film, dammar dries purely by the turpentine evaporating back out — no oxidative crosslinking — so it stays removable with the same solvent decades later. That reversibility is exactly why conservators favor it over the older mastic varnish, which embrittles and yellows faster and is harder to safely strip.",
+    "hex": "#e8c66a",
+    "link": "https://cameo.mfa.org/wiki/Dammar",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Cobalt drier",
+    "category": "additive",
+    "composition": "cobalt carboxylate (metal soap catalyst)",
+    "drying": "can cut touch-dry time from days to hours",
+    "note": "A few drops catalyze the oil's free-radical oxidation without being consumed by it. Historically lead-based (Japan drier); cobalt and manganese variants are more common now. Overuse drives the surface to skin over faster than the oxidation front moves through the layer beneath — a common cause of premature wrinkling.",
+    "hex": "#7d6bb0",
+    "link": "https://cameo.mfa.org/wiki/Cobalt_drier",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Alkyd resin / medium",
+    "category": "binder",
+    "composition": "oil-modified polyester (polybasic acid + polyhydric alcohol)",
+    "drying": "touch-dry same day",
+    "note": "First commercialized as Glyptal in 1926. Alkyd mediums stay miscible with traditional oil paint while drying far faster than neat linseed oil — useful for underpainting or for compressing a multi-day layering schedule, though the fat-over-lean logic still applies between fast and slow layers.",
+    "hex": "#f0e6c8",
+    "link": "https://cameo.mfa.org/wiki/Alkyd_resin",
+    "link_label": "CAMEO (MFA Boston)"
+  },
+  {
+    "name": "Fat over lean",
+    "category": "technique",
+    "composition": "layering rule, not a material",
+    "drying": "governs the whole painting's drying schedule",
+    "note": "Each layer needs more oil (or slower medium) than the one beneath it. Paint a lean layer over a fat one and the surface skins over while the fatter layer underneath is still shrinking as it cures — the classic mechanism behind cracking that shows up months or years after the painting looked finished.",
+    "hex": null,
+    "link": "https://en.wikipedia.org/wiki/Fat_over_lean",
+    "link_label": "Wikipedia"
+  }
+]

@@ -4,7 +4,7 @@ title: Palette
 permalink: /palette/
 ---
 
-Plant, mineral, and synthetic pigments — swatches are illustrative approximations, not spectrophotometric data. Sourced from [CAMEO](https://cameo.mfa.org/wiki/Pigment), the Museum of Fine Arts Boston's conservation materials reference.
+Plant, mineral, and synthetic pigments — swatches are illustrative approximations, not spectrophotometric data. Sourced from [CAMEO](https://cameo.mfa.org/wiki/Pigment), the Museum of Fine Arts Boston's conservation materials reference. See also <a href="{{ '/materials/' | relative_url }}">Materials</a> — binders, solvents, varnishes, driers.
 
 {%- assign pigments = site.data.pigment_index -%}
 {%- assign categories = "plant,mineral,synthetic" | split: "," -%}
