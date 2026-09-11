@@ -1,0 +1,212 @@
+html, body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Menlo', 'Courier New', monospace;
+  background: linear-gradient(to bottom, white, lightgray) no-repeat fixed;
+  background-size: 100% 100%;
+}
+
+.horizontal-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 1em 0;
+  margin: 0;
+  font-family: 'Menlo', 'Courier New', monospace;
+  font-size: 1.6rem;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.nav-item {
+  white-space: nowrap;
+}
+
+a {
+  text-decoration: none;
+  transition: box-shadow 0.5s ease-in-out;
+}
+
+a:hover {
+  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
+}
+
+.content {
+  padding: 2em;
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.lede {
+  color: #444;
+  margin-bottom: 2em;
+}
+
+/* Journal-page gallery: mirrors the portfolio site's painting grid */
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 4em;
+}
+
+.entry {
+  box-sizing: border-box;
+  padding: 0;
+  margin-bottom: 1em;
+  text-align: center;
+  position: relative;
+}
+
+.entry img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  opacity: 0;
+  transition: opacity 0.4s ease-in;
+}
+
+.entry img.loaded {
+  opacity: 1;
+}
+
+.entry::before {
+  content: '';
+  display: block;
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.entry:has(img.loaded)::before {
+  display: none;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.entry-info {
+  margin-top: 0.8em;
+  font-size: 0.85rem;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.entry-info .caption {
+  font-weight: bold;
+}
+
+.entry-info .date {
+  color: #666;
+  margin-left: 0.5em;
+}
+
+.empty-note {
+  color: #666;
+  font-style: italic;
+}
+
+/* Admin: password gate + upload form */
+.gate {
+  max-width: 360px;
+  margin: 4em auto;
+  padding: 2em;
+  text-align: center;
+  background: rgba(255,255,255,0.85);
+  border-radius: 6px;
+}
+
+.gate input[type="password"],
+.gate input[type="text"],
+.upload-form input,
+.upload-form select {
+  font-family: 'Menlo', 'Courier New', monospace;
+  font-size: 1rem;
+  padding: 0.5em;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 0.8em;
+  border: 1px solid #999;
+  border-radius: 3px;
+}
+
+.gate button,
+.upload-form button {
+  font-family: 'Menlo', 'Courier New', monospace;
+  font-size: 1rem;
+  padding: 0.5em 1.2em;
+  cursor: pointer;
+  border: 1px solid #333;
+  border-radius: 3px;
+  background: #fff;
+}
+
+.gate button:hover,
+.upload-form button:hover {
+  background: #eee;
+}
+
+.gate .error {
+  color: #a00;
+  font-size: 0.9rem;
+  min-height: 1.2em;
+}
+
+.upload-form {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.upload-form label {
+  display: block;
+  font-size: 0.85rem;
+  color: #444;
+  margin-bottom: 0.2em;
+}
+
+.upload-status {
+  margin-top: 1em;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+}
+
+.warn-box {
+  background: rgba(255, 240, 200, 0.85);
+  border: 1px solid #c90;
+  border-radius: 6px;
+  padding: 1em;
+  font-size: 0.85rem;
+  margin-bottom: 1.5em;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .content {
+    padding: 1.5em;
+  }
+
+  .horizontal-list {
+    font-size: 0.85rem;
+    padding: 0.5em;
+    gap: 0.4em 0.6em;
+  }
+
+  .entry-info {
+    font-size: clamp(0.6rem, calc(340px / (var(--cap-len, 30) * 0.62)), 0.9rem);
+  }
+}

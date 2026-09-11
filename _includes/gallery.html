@@ -1,0 +1,30 @@
+{%- assign entries = site.data[include.category] | sort: "date" | reverse -%}
+{%- assign residency_lookup = site.data.residencies -%}
+{% if entries.size == 0 %}
+  <p class="empty-note">Nothing uploaded here yet.</p>
+{% else %}
+<div class="gallery">
+  {% for e in entries %}
+    {%- assign residency_label = e.residency -%}
+    {% for r in residency_lookup %}
+      {% if r.slug == e.residency %}
+        {% assign residency_label = r.label %}
+      {% endif %}
+    {% endfor %}
+    {%- assign cap = e.caption | default: "" -%}
+    {%- assign cap_len = cap | append: e.date | append: residency_label | size -%}
+    <div class="entry">
+      <img
+        src="{{ '/' | append: include.category | append: '/' | append: e.file | relative_url }}"
+        alt="{{ cap | default: e.file }}"
+        loading="lazy"
+        onload="this.classList.add('loaded')"
+      />
+      <div class="entry-info" style="--cap-len: {{ cap_len }};">
+        {% if e.caption %}<span class="caption">{{ e.caption }}</span>{% endif %}
+        <span class="date">{{ e.date }}{% if residency_label %} · {{ residency_label }}{% endif %}</span>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endif %}

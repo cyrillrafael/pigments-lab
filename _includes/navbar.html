@@ -1,0 +1,9 @@
+<nav>
+  <ul class="horizontal-list">
+    {% for link in site.nav_links %}
+    <li class="nav-item">
+      <a href="{{ link.url | relative_url }}">{{ link.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</nav>

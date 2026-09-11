@@ -1,0 +1,29 @@
+title: "Pigments Lab"
+description: "Pigment chemistry research, sketchbooks, and backstage workshop notes"
+
+url: "https://cyrillrafael.github.io"
+baseurl: "/pigments-lab"
+
+# Navigation links
+nav_links:
+  - title: "Lab"
+    url: "/"
+  - title: "Pigments"
+    url: "/pigments/"
+  - title: "Sketchbooks"
+    url: "/sketchbooks/"
+  - title: "Workshop"
+    url: "/workshop/"
+  - title: "Reports"
+    url: "/reports/"
+  - title: "Portfolio ↗"
+    url: "https://cyrillrafael.org"
+
+exclude:
+  - .git
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - _site
+  - vendor
+  - node_modules
