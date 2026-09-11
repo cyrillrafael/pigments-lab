@@ -16,6 +16,8 @@ nav_links:
     url: "/workshop/"
   - title: "Reports"
     url: "/reports/"
+  - title: "Admin"
+    url: "/admin/"
   - title: "Portfolio ↗"
     url: "https://cyrillrafael.org"
 
