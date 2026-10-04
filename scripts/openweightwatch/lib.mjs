@@ -120,13 +120,23 @@ export function tallyFormats(children) {
   return out;
 }
 
+/** Repo-id markers of quantised or modified repacks that often lack base_model tags. */
+const REPACK_ID = /(?:^|[-_.])(gguf|awq|gptq|mlx|exl[23]|bnb|nvfp4|mxfp4|fp8|fp4|int[48]|w4a16|w8a8|[248]-?bit|abliterated|uncensored)(?:$|[-_.])/i;
+
+/** True when a repo is a quantised or modified repack, by format tag or id marker. */
+export function isRepack(model) {
+  return formatsFromTags(model?.tags).length > 0 || REPACK_ID.test(String(model?.id || "").split("/")[1] || "");
+}
+
 /**
  * Discovery rule: keep only first-party releases.
+ *   - excluded: repacks (format tags or id markers such as -GGUF, -NVFP4, -abliterated);
  *   - excluded: quantisations, adapters and merges of another repo;
  *   - excluded: fine-tunes whose base belongs to a different author.
  */
 export function isFirstPartyRelease(model) {
   const author = String(model?.id || "").split("/")[0].toLowerCase();
+  if (isRepack(model)) return false;
   for (const t of model?.tags || []) {
     if (typeof t !== "string" || !t.startsWith("base_model:")) continue;
     const parts = t.split(":");
@@ -222,14 +232,21 @@ export function retryAfterSeconds(header, now = Date.now()) {
   return Number.isFinite(t) ? Math.max(0, Math.round((t - now) / 1000)) : null;
 }
 
-/** Pick the best candidate from a Hub search for a `resolve` hint. */
+/**
+ * Pick the best candidate from a Hub search for a `resolve` hint:
+ * same author, search text present in the repo name, optional regex,
+ * not a repack or derivative; highest 30-day downloads wins.
+ */
 export function pickResolved(candidates, resolve) {
   if (!Array.isArray(candidates) || !resolve) return null;
   const author = String(resolve.author || "").toLowerCase();
+  const needle = String(resolve.search || "").toLowerCase();
   const re = resolve.match ? new RegExp(resolve.match, "i") : null;
+  // Hub search is fuzzy, so the search text must also appear literally in the repo name.
   const pool = candidates.filter((c) =>
     typeof c?.id === "string" &&
     (!author || c.id.toLowerCase().startsWith(author + "/")) &&
+    (!needle || c.id.toLowerCase().split("/")[1]?.includes(needle)) &&
     (!re || re.test(c.id)) &&
     isFirstPartyRelease(c)
   );

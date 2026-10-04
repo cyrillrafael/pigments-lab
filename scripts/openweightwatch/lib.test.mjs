@@ -129,3 +129,49 @@ test("pickResolved filters by author, regex and first-party, then ranks by downl
   assert.equal(L.pickResolved(c, { author: "meta" }), null);
   assert.equal(L.pickResolved(null, { author: "x" }), null);
 });
+
+test("isRepack detects format tags and repack markers in repo names", () => {
+  assert.equal(L.isRepack({ id: "a/Model-7B-GGUF" }), true);
+  assert.equal(L.isRepack({ id: "mistralai/Mistral-Large-3-675B-Instruct-2512-NVFP4" }), true);
+  assert.equal(L.isRepack({ id: "a/Gemma-4-E4B-Uncensored-Aggressive" }), true);
+  assert.equal(L.isRepack({ id: "a/GLM-5.3-abliterated" }), true);
+  assert.equal(L.isRepack({ id: "a/Model-4bit" }), true);
+  assert.equal(L.isRepack({ id: "a/plain", tags: ["mlx"] }), true);
+  for (const id of ["openai/gpt-oss-20b", "Qwen/Qwen3-Next-80B-A3B-Instruct", "moonshotai/Kimi-K2-Instruct",
+                    "deepseek-ai/DeepSeek-V3.1", "meta-llama/Llama-4-Scout-17B-16E-Instruct", "zai-org/GLM-5.3"]) {
+    assert.equal(L.isRepack({ id }), false, id);
+  }
+});
+
+test("pickResolved requires the search text in the repo name and honours exclusion patterns", () => {
+  const olmo = [{ id: "allenai/OLMo-2-0325-32B-Instruct", downloads: 9e4, tags: [] }];
+  assert.equal(L.pickResolved(olmo, { author: "allenai", search: "Olmo-3", match: "32B" }), null, "fuzzy Hub hit is rejected");
+  const glm = [
+    { id: "zai-org/GLM-5.3-Flash", downloads: 5e6, tags: [] },
+    { id: "zai-org/GLM-5.3", downloads: 2e6, tags: [] },
+    { id: "zai-org/GLM-5.3-FP8", downloads: 9e6, tags: [] }
+  ];
+  assert.equal(L.pickResolved(glm, { author: "zai-org", search: "GLM-5.3", match: "^zai-org/GLM-5\\.3(?!.*(flash|air))" }), "zai-org/GLM-5.3");
+  const ml3 = [
+    { id: "mistralai/Mistral-Large-3-675B-Instruct-2512-NVFP4", downloads: 11470, tags: [] },
+    { id: "mistralai/Mistral-Large-3-675B-Instruct-2512", downloads: 9000, tags: [] }
+  ];
+  assert.equal(L.pickResolved(ml3, { author: "mistralai", search: "Large-3" }), "mistralai/Mistral-Large-3-675B-Instruct-2512");
+});
+
+test("registry resolve patterns compile and exclude known wrong matches", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const reg = JSON.parse(await readFile(new URL("./registry/pigments.json", import.meta.url), "utf8"));
+  const ids = new Set();
+  for (const p of reg) {
+    assert.ok(!ids.has(p.id), `duplicate id ${p.id}`); ids.add(p.id);
+    assert.ok(p.hf || p.resolve, `${p.id} needs hf or resolve`);
+    if (p.resolve?.match) new RegExp(p.resolve.match, "i");
+  }
+  const re = (id) => new RegExp(reg.find((p) => p.id === id).resolve.match, "i");
+  assert.equal(re("deepseek-v4").test("deepseek-ai/DeepSeek-V4-Flash-0731"), false);
+  assert.equal(re("deepseek-v4").test("deepseek-ai/DeepSeek-V4.1-Flash"), false);
+  assert.equal(re("deepseek-v4").test("deepseek-ai/DeepSeek-V4"), true);
+  assert.equal(re("glm-5.3").test("zai-org/GLM-5.3-Flash"), false);
+  assert.equal(re("glm-5.3").test("zai-org/GLM-5.3"), true);
+});

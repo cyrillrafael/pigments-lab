@@ -41,6 +41,7 @@ export function config(env = process.env) {
     maxPages: clampInt(env.OWW_MAX_PAGES, 5, 1, 50),
     pageSize: 1000,
     discoverLimit: 24,
+    discoverMaxAgeDays: 120,
     spacesPerPigment: 8,
     maxSpaces: 60,
     historyCap: 56,
@@ -364,7 +365,8 @@ export async function build(opts = {}) {
       .filter((m) => typeof m?.id === "string" && !seen.has(m.id) && seen.add(m.id))
       .filter((m) => !catalogued.has(m.id.toLowerCase()) && L.isFirstPartyRelease(m))
       .sort((a, b) => (b.trendingScore ?? 0) - (a.trendingScore ?? 0))
-      .slice(0, cfg.discoverLimit);
+      .slice(0, cfg.discoverLimit * 2); // headroom for the age filter below
+    const freshSince = Date.parse(generatedAt) - cfg.discoverMaxAgeDays * 86_400_000;
     discovered = (await pool(candidates, cfg.concurrency, async (m) => {
       const info = await hub.model(m.id).catch((err) => { fail("discover", m.id, err); return null; });
       const license = L.hubLicense(info || m);
@@ -382,7 +384,7 @@ export async function build(opts = {}) {
         pipeline: info?.pipeline_tag || null,
         gated: info?.gated || false
       };
-    })).filter(Boolean);
+    })).filter((d) => d && Date.parse(d.createdAt) >= freshSince).slice(0, cfg.discoverLimit);
   } catch (err) {
     fail("discover", "*", err);
   }

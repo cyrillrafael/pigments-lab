@@ -71,6 +71,8 @@ function makeFakeWorld({ previous = null } = {}) {
         return json([
           { id: "newlab/Shiny-9B", trendingScore: 99, downloads: 10, likes: 3, tags: ["license:apache-2.0"] },
           { id: "fan/Shiny-9B-GGUF", trendingScore: 98, tags: ["base_model:quantized:newlab/Shiny-9B"] },
+          { id: "fan/Shiny-9B-abliterated", trendingScore: 97, tags: [] },
+          { id: "oldlab/Evergreen-8B", trendingScore: 96, tags: [] },
           { id: "deepseek-ai/DeepSeek-R1", trendingScore: 50, tags: [] }
         ]);
       }
@@ -81,7 +83,8 @@ function makeFakeWorld({ previous = null } = {}) {
       if (q.getAll("expand[]").length) return models[id] ? json({ id, downloadsAllTime: 12345, trendingScore: 7 }) : new Response("", { status: 404 });
       if (id === "openai/gpt-oss-120b") return new Response("boom", { status: 500 }); // permanent failure
       if (id === "openai/gpt-oss-20b" && flaky++ < 2) return new Response("busy", { status: 503 }); // transient
-      if (id === "newlab/Shiny-9B") return json({ id, downloads: 10, likes: 3, cardData: { license: "apache-2.0" }, safetensors: { total: 9e9 } });
+      if (id === "newlab/Shiny-9B") return json({ id, downloads: 10, likes: 3, createdAt: "2026-09-20T00:00:00Z", cardData: { license: "apache-2.0" }, safetensors: { total: 9e9 } });
+      if (id === "oldlab/Evergreen-8B") return json({ id, downloads: 99, likes: 9, createdAt: "2024-07-23T00:00:00Z", cardData: { license: "mit" } });
       return models[id] ? json(models[id]) : new Response("not found", { status: 404 });
     }
     if (p === "/api/spaces") {
@@ -141,7 +144,7 @@ test("build enriches pigments, resolves hints, tallies formats and composes mosa
   assert.equal(missing.hub.found, false);
   assert.ok(missing.checks.some((c) => c.kind === "missing"));
 
-  assert.deepEqual(doc.discovered.map((d) => d.id), ["newlab/Shiny-9B"], "excludes quantisations and catalogued ids");
+  assert.deepEqual(doc.discovered.map((d) => d.id), ["newlab/Shiny-9B"], "excludes repacks, stale releases and catalogued ids");
   assert.equal(doc.discovered[0].licenseClass, "osi");
   assert.equal(doc.discovered[0].params, 9e9);
 
