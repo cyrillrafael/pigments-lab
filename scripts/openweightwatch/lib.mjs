@@ -120,17 +120,31 @@ export function tallyFormats(children) {
   return out;
 }
 
-/** Repo-id markers of quantised or modified repacks that often lack base_model tags. */
+/** Repo-name markers of quantised or modified repacks that often lack base_model tags. */
 const REPACK_ID = /(?:^|[-_.])(gguf|awq|gptq|mlx|exl[23]|bnb|nvfp4|mxfp4|fp8|fp4|int[48]|w4a16|w8a8|[248]-?bit|abliterated|uncensored)(?:$|[-_.])/i;
 
-/** True when a repo is a quantised or modified repack, by format tag or id marker. */
+/** Repo-name markers of auxiliary or intermediate checkpoints (ranked last when resolving). */
+const VARIANT_ID = /(?:^|[-_.])(eagle\d*|mtp|draft|sft|dpo|bf16|fp16)(?:$|[-_.])/i;
+
+const repoName = (model) => String(model?.id || "").split("/")[1] || "";
+
+/**
+ * True when a repo is a quantised or modified repack, judged by its name.
+ * Format tags alone are not enough: official releases often ship natively
+ * in FP8 or INT4 and carry the same tags as third-party quantisations.
+ */
 export function isRepack(model) {
-  return formatsFromTags(model?.tags).length > 0 || REPACK_ID.test(String(model?.id || "").split("/")[1] || "");
+  return REPACK_ID.test(repoName(model));
+}
+
+/** True when a repo name marks a repack or an auxiliary/intermediate checkpoint. */
+export function isVariant(model) {
+  return isRepack(model) || VARIANT_ID.test(repoName(model));
 }
 
 /**
  * Discovery rule: keep only first-party releases.
- *   - excluded: repacks (format tags or id markers such as -GGUF, -NVFP4, -abliterated);
+ *   - excluded: repacks (name markers such as -GGUF, -NVFP4, -abliterated);
  *   - excluded: quantisations, adapters and merges of another repo;
  *   - excluded: fine-tunes whose base belongs to a different author.
  */
@@ -234,8 +248,8 @@ export function retryAfterSeconds(header, now = Date.now()) {
 
 /**
  * Pick the best candidate from a Hub search for a `resolve` hint:
- * same author, search text present in the repo name, optional regex,
- * not a repack or derivative; highest 30-day downloads wins.
+ * same author, search text present in the repo name, optional regex, not
+ * a declared derivative; clean names beat variants, then 30-day downloads.
  */
 export function pickResolved(candidates, resolve) {
   if (!Array.isArray(candidates) || !resolve) return null;
@@ -246,10 +260,14 @@ export function pickResolved(candidates, resolve) {
   const pool = candidates.filter((c) =>
     typeof c?.id === "string" &&
     (!author || c.id.toLowerCase().startsWith(author + "/")) &&
-    (!needle || c.id.toLowerCase().split("/")[1]?.includes(needle)) &&
+    (!needle || repoName(c).toLowerCase().includes(needle)) &&
     (!re || re.test(c.id)) &&
-    isFirstPartyRelease(c)
+    !(c.tags || []).some((t) => /^base_model:(quantized|adapter|merge):/.test(t))
   );
-  pool.sort((a, b) => (b.downloads ?? 0) - (a.downloads ?? 0) || a.id.localeCompare(b.id));
+  // Clean names first (variants such as -BF16, -Eagle, -SFT, -NVFP4 only as a fallback), then downloads.
+  pool.sort((a, b) =>
+    Number(isVariant(a)) - Number(isVariant(b)) ||
+    (b.downloads ?? 0) - (a.downloads ?? 0) ||
+    a.id.localeCompare(b.id));
   return pool[0]?.id ?? null;
 }

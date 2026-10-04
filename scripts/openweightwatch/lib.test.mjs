@@ -136,7 +136,11 @@ test("isRepack detects format tags and repack markers in repo names", () => {
   assert.equal(L.isRepack({ id: "a/Gemma-4-E4B-Uncensored-Aggressive" }), true);
   assert.equal(L.isRepack({ id: "a/GLM-5.3-abliterated" }), true);
   assert.equal(L.isRepack({ id: "a/Model-4bit" }), true);
-  assert.equal(L.isRepack({ id: "a/plain", tags: ["mlx"] }), true);
+  assert.equal(L.isRepack({ id: "zai-org/GLM-5.3", tags: ["fp8"] }), false, "native FP8 release is not a repack");
+  assert.equal(L.isVariant({ id: "zai-org/GLM-5.3-BF16" }), true);
+  assert.equal(L.isVariant({ id: "mistralai/Mistral-Small-4-119B-2603-eagle" }), true);
+  assert.equal(L.isVariant({ id: "allenai/Olmo-3-32B-Think-SFT" }), true);
+  assert.equal(L.isVariant({ id: "allenai/Olmo-3-32B-Think" }), false);
   for (const id of ["openai/gpt-oss-20b", "Qwen/Qwen3-Next-80B-A3B-Instruct", "moonshotai/Kimi-K2-Instruct",
                     "deepseek-ai/DeepSeek-V3.1", "meta-llama/Llama-4-Scout-17B-16E-Instruct", "zai-org/GLM-5.3"]) {
     assert.equal(L.isRepack({ id }), false, id);
@@ -148,15 +152,20 @@ test("pickResolved requires the search text in the repo name and honours exclusi
   assert.equal(L.pickResolved(olmo, { author: "allenai", search: "Olmo-3", match: "32B" }), null, "fuzzy Hub hit is rejected");
   const glm = [
     { id: "zai-org/GLM-5.3-Flash", downloads: 5e6, tags: [] },
-    { id: "zai-org/GLM-5.3", downloads: 2e6, tags: [] },
+    { id: "zai-org/GLM-5.3-BF16", downloads: 3e6, tags: [] },
+    { id: "zai-org/GLM-5.3", downloads: 2e6, tags: ["fp8"] },
     { id: "zai-org/GLM-5.3-FP8", downloads: 9e6, tags: [] }
   ];
   assert.equal(L.pickResolved(glm, { author: "zai-org", search: "GLM-5.3", match: "^zai-org/GLM-5\\.3(?!.*(flash|air))" }), "zai-org/GLM-5.3");
   const ml3 = [
     { id: "mistralai/Mistral-Large-3-675B-Instruct-2512-NVFP4", downloads: 11470, tags: [] },
-    { id: "mistralai/Mistral-Large-3-675B-Instruct-2512", downloads: 9000, tags: [] }
+    { id: "mistralai/Mistral-Large-3-675B-Instruct-2512-Eagle", downloads: 163, tags: [] },
+    { id: "mistralai/Mistral-Large-3-675B-Instruct-2512", downloads: 9000, tags: ["fp8"] },
+    { id: "someone/Mistral-Large-3-GGUF", downloads: 99999, tags: ["base_model:quantized:mistralai/Mistral-Large-3-675B-Instruct-2512"] }
   ];
   assert.equal(L.pickResolved(ml3, { author: "mistralai", search: "Large-3" }), "mistralai/Mistral-Large-3-675B-Instruct-2512");
+  const onlyVariant = [{ id: "allenai/Olmo-3-32B-Think-SFT", downloads: 5, tags: [] }];
+  assert.equal(L.pickResolved(onlyVariant, { author: "allenai", search: "Olmo-3" }), "allenai/Olmo-3-32B-Think-SFT", "variant is a fallback, not excluded");
 });
 
 test("registry resolve patterns compile and exclude known wrong matches", async () => {
