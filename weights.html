@@ -1,0 +1,102 @@
+---
+layout: default
+title: Weights
+permalink: /weights/
+wide: true
+---
+<div id="oww" class="oww"
+     data-src="{{ '/weights/data/watch.json' | relative_url }}"
+     data-palette="{{ '/palette/' | relative_url }}">
+
+  <p>Open-weight language models, read as paint. Each published <em>weight set</em> is a <strong>pigment</strong>: a lab’s hue, rated for lightfastness and transparency the way a tube of paint is. Each piece of software built from them is a <strong>mosaic</strong>, set from tesserae in those pigments. Compare with the <a href="{{ '/palette/' | relative_url }}">pigment reference palette</a>.</p>
+
+  <p class="oww-fresh" id="oww-fresh" role="status">Loading live data…</p>
+
+  <details class="oww-rosetta">
+    <summary>How paint maps to weights</summary>
+    <div class="oww-table-wrap">
+      <table>
+        <thead><tr><th>Paint</th><th>Weights</th><th>Rule</th></tr></thead>
+        <tbody>
+          <tr><td>Pigment (hue)</td><td>Lab lineage</td><td>Each lab is assigned one historical pigment. All of its weight sets share that hue.</td></tr>
+          <tr><td>Lightfastness I–IV</td><td>Licence tier</td><td>I fully open · II OSI licence · III conditional licence · IV restricted licence · — unverified. Tiers follow the criteria below.</td></tr>
+          <tr><td>Transparency T · ST · O</td><td>Training data</td><td>T released in full · ST partially released or documented · O undisclosed · ? unknown. The black stripe under each swatch shows through in proportion.</td></tr>
+          <tr><td>Granulation</td><td>Mixture of experts</td><td>MoE weight sets granulate. Dense ones lay down smooth.</td></tr>
+          <tr><td>Tinting strength</td><td>Adoption <span class="oww-live">live</span></td><td>Quartile of 30-day Hugging Face downloads among the catalogued sets.</td></tr>
+          <tr><td>Convenience mixtures</td><td>Derivatives <span class="oww-live">live</span></td><td>Quantisations, fine-tunes, adapters and merges that declare the set as their <code>base_model</code>.</td></tr>
+          <tr><td>Mosaic</td><td>Software project</td><td>An inference runtime on GitHub, or an app (Space) on Hugging Face.</td></tr>
+          <tr><td>Tessera</td><td>Evidence of use <span class="oww-live">live</span></td><td>Runtime: one derivative repo in the runtime’s native format. Space: one model the Space declares. Each mosaic has 144 tesserae, apportioned by largest remainder.</td></tr>
+          <tr><td>Setting bed</td><td>File format</td><td>GGUF, MLX, AWQ, GPTQ, FP8, EXL2, ONNX, OpenVINO, bitsandbytes.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="oww-tabs" role="tablist" aria-label="Views">
+    <button role="tab" id="tab-pigments" aria-controls="oww-pigments" aria-selected="true">Pigments</button>
+    <button role="tab" id="tab-mosaics" aria-controls="oww-mosaics" aria-selected="false">Mosaics</button>
+    <button role="tab" id="tab-fresh" aria-controls="oww-new" aria-selected="false">Fresh on the Hub</button>
+  </div>
+
+  <section id="oww-pigments" role="tabpanel" aria-labelledby="tab-pigments">
+    <form class="oww-filters" id="oww-pfilters" role="search" aria-label="Filter pigments">
+      <label>Search<input id="pf-q" type="search" placeholder="name, lab, licence" autocomplete="off"></label>
+      <label>Lab<select id="pf-lab"><option value="">All</option></select></label>
+      <label>Lightfastness<select id="pf-tier">
+        <option value="">All</option><option value="I">I · fully open</option><option value="II">II · OSI licence</option>
+        <option value="III">III · conditional</option><option value="IV">IV · restricted</option><option value="—">— · unverified</option>
+      </select></label>
+      <label>Transparency<select id="pf-tr">
+        <option value="">All</option><option value="T">T · transparent</option><option value="ST">ST · semi</option>
+        <option value="O">O · opaque</option><option value="?">? · unknown</option>
+      </select></label>
+      <label>Sort<select id="pf-sort">
+        <option value="strength">Tinting strength</option><option value="likes">Likes</option>
+        <option value="derivatives">Derivatives</option><option value="date">Newest release</option>
+        <option value="size">Size</option><option value="openness">Openness score</option>
+      </select></label>
+    </form>
+    <p class="oww-count" id="pf-count" aria-live="polite"></p>
+    <div class="oww-grid" id="oww-pgrid"></div>
+  </section>
+
+  <section id="oww-mosaics" role="tabpanel" aria-labelledby="tab-mosaics" hidden>
+    <h3>Runtimes</h3>
+    <p class="oww-note">Open-source engines on GitHub. Tesserae count derivative repos on the Hub in each engine’s native format, so a mosaic shows which weight sets people actually prepare for it.</p>
+    <div class="oww-grid oww-mgrid" id="oww-rgrid"></div>
+    <h3>Spaces</h3>
+    <p class="oww-note">The most-liked Hugging Face Spaces built on catalogued weight sets. Grey tesserae are models outside the catalogue.</p>
+    <div class="oww-grid oww-mgrid" id="oww-sgrid"></div>
+  </section>
+
+  <section id="oww-new" role="tabpanel" aria-labelledby="tab-fresh" hidden>
+    <p class="oww-note">Trending first-party releases on the Hub that are not in the catalogue yet. They are unrated: the licence class comes from the Hub tag, and training code and data have not been reviewed. Quantisations, adapters, merges and third-party fine-tunes are excluded.</p>
+    <div class="oww-table-wrap"><table class="oww-fresh-table">
+      <thead><tr><th>Weight set</th><th class="r">Params</th><th>Licence (Hub)</th><th class="r">30-day downloads</th><th class="r">Likes</th><th>Created</th></tr></thead>
+      <tbody id="oww-ftbody"></tbody>
+    </table></div>
+  </section>
+
+  <details class="oww-rosetta oww-criteria">
+    <summary>Openness criteria</summary>
+    <ol>
+      <li><strong>Inclusion.</strong> Weights for at least one checkpoint can be downloaded by the public. Click-through gating is allowed; access by request or API only is not.</li>
+      <li><strong>Licence classes.</strong>
+        <ol type="a">
+          <li>L-A: OSI-approved or public-domain dedication, no field-of-use restriction.</li>
+          <li>L-B: commercial use for everyone, with conditions limited to attribution, notice or share-alike.</li>
+          <li>L-C: an acceptable-use policy that binds downstream users, a user or revenue threshold, a non-commercial clause, or a hosting limit.</li>
+          <li>L-?: licence not verified.</li>
+        </ol></li>
+      <li><strong>Openness score, 0 to 6.</strong> Licence L-A 2 · L-B 1 · otherwise 0; training code 1; training data full 2 · partial 1; technical report 1. Unknown counts as 0.</li>
+      <li><strong>Tiers, first match wins.</strong> I: L-A, training code and full data · II: L-A · III: L-B · IV: L-C · —: L-?.</li>
+      <li><strong>Verification.</strong> “Confirmed” entries match the official model card. “Reported” entries come from secondary coverage. Live Hub metadata is checked against each entry and any disagreement is flagged on the card.</li>
+    </ol>
+  </details>
+
+  <dialog id="oww-detail" class="oww-dialog" aria-labelledby="oww-detail-title">
+    <form method="dialog" class="oww-close-row"><button class="oww-close" aria-label="Close">Close ✕</button></form>
+    <div id="oww-detail-body"></div>
+  </dialog>
+</div>
+<script src="{{ '/assets/js/weights.js' | relative_url }}" defer></script>

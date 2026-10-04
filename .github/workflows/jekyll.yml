@@ -4,6 +4,9 @@ on:
   push:
     branches: ["main"]
   workflow_dispatch:
+  # Rebuild every 3 hours so /weights/ carries fresh Hugging Face + GitHub data.
+  schedule:
+    - cron: "17 */3 * * *"
 
 permissions:
   contents: read
@@ -30,6 +33,32 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Open Weight Watch data for /weights/. Never blocks the site deploy:
+      # if this step fails, the next one restores the currently published data.
+      - name: Fetch Open Weight Watch data
+        id: oww
+        continue-on-error: true
+        timeout-minutes: 20
+        run: |
+          node --test scripts/openweightwatch/*.test.mjs
+          node scripts/openweightwatch/fetch.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          OWW_PREVIOUS_URL: ${{ steps.pages.outputs.base_url }}/weights/data/watch.json
+
+      - name: Keep last published Open Weight Watch data
+        if: steps.oww.outcome == 'failure'
+        run: |
+          mkdir -p weights/data
+          curl -fsSL "${{ steps.pages.outputs.base_url }}/weights/data/watch.json" -o weights/data/watch.json \
+            || echo "::warning::No previous Open Weight Watch data available; /weights/ will show its empty state."
 
       - name: Build with Jekyll
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"

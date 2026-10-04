@@ -1,0 +1,60 @@
+name: Check Open Weight Watch data build
+
+# Exercises the /weights/ data pipeline against the real Hugging Face Hub and
+# GitHub APIs without deploying. Runs on feature branches that touch it.
+on:
+  push:
+    branches-ignore: ["main"]
+    paths:
+      - "scripts/openweightwatch/**"
+      - ".github/workflows/weights-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Unit and end-to-end tests
+        run: node --test scripts/openweightwatch/*.test.mjs
+
+      - name: Live data build
+        run: node scripts/openweightwatch/fetch.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          OWW_PREVIOUS_URL: https://cyrillrafael.github.io/pigments-lab/weights/data/watch.json
+
+      - name: Summarise
+        run: |
+          node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const d = JSON.parse(readFileSync("weights/data/watch.json", "utf8"));
+            console.log("generatedAt", d.generatedAt, JSON.stringify(d.stats));
+            for (const p of d.pigments) {
+              const h = p.hub || {}, q = h.derivatives?.quantized;
+              console.log([p.id, h.found ? "found" : "MISSING", h.id ?? "-", h.resolvedBy ?? "-", "dl=" + (h.downloads ?? "-"),
+                "lic=" + (h.license ?? "-"), "params=" + (h.params ? (h.params / 1e9).toFixed(1) + "B" : "-"),
+                "quant=" + (q?.count ?? "-") + (q?.capped ? "+" : ""), "fmts=" + Object.keys(q?.formats || {}).join("/"),
+                "checks=" + (p.checks || []).map((c) => c.kind).join("/")].join("  "));
+            }
+            for (const r of d.runtimes) console.log("runtime", r.repo, "stars=" + (r.github?.stars ?? "-"), "tiles=" + r.composition.length);
+            console.log("spaces", d.spaces.length, d.spaces.slice(0, 5).map((s) => s.id + "(" + s.pigments.length + ")").join(", "));
+            console.log("discovered", d.discovered.map((x) => x.id).join(", "));
+            for (const e of d.errors) console.log("error", e.scope, e.id, e.message);
+          '
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: watch-json
+          path: weights/data/watch.json
+          retention-days: 7

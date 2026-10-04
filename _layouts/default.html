@@ -9,7 +9,7 @@
   <body>
     <main>
       {% include navbar.html %}
-      <div class="content">
+      <div class="content{% if page.wide %} content-wide{% endif %}">
         {{ content }}
       </div>
     </main>

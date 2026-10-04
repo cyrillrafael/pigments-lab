@@ -597,3 +597,378 @@ h3 {
     font-size: clamp(0.6rem, calc(340px / (var(--cap-len, 30) * 0.62)), 0.9rem);
   }
 }
+
+/* ------------------------------------------------------------------
+ * Weights — Open Weight Watch (weights.html + assets/js/weights.js)
+ * Weight sets as pigments, software as mosaics.
+ * ------------------------------------------------------------------ */
+.content.content-wide {
+  max-width: 1100px;
+}
+
+.oww {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+  font-size: 1rem;
+}
+
+.oww p {
+  max-width: 70ch;
+  margin: 0;
+}
+
+.oww a {
+  color: #1b2a85;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.oww :focus-visible {
+  outline: 2px solid #1b2a85;
+  outline-offset: 2px;
+}
+
+.oww-muted { color: #666; }
+.oww-small { font-size: 0.75rem; }
+.oww-warn { color: #8a5300; }
+
+.oww-live {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0a6b0a;
+  background: rgba(0, 140, 0, 0.1);
+  border-radius: 3px;
+  padding: 0.1em 0.4em;
+  vertical-align: middle;
+}
+
+/* freshness line */
+.oww-fresh {
+  font-size: 0.8rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.oww-dot {
+  display: inline-block;
+  width: 0.6em;
+  height: 0.6em;
+  border-radius: 50%;
+  background: #0ca30c;
+  margin-right: 0.2em;
+  vertical-align: 0.05em;
+}
+
+.oww-dot.stale { background: #c98500; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .oww-dot.live { animation: oww-pulse 2.4s ease-in-out infinite; }
+}
+
+@keyframes oww-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(12, 163, 12, 0.45); }
+  50% { box-shadow: 0 0 0 4px rgba(12, 163, 12, 0); }
+}
+
+/* rosetta + criteria */
+.oww-rosetta {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  padding: 0.6em 0.9em;
+  font-size: 0.8rem;
+}
+
+.oww-rosetta summary {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.oww-rosetta ol { margin: 0.6em 0 0.2em; padding-left: 1.4em; display: grid; gap: 0.35em; }
+.oww-rosetta ol ol { margin-top: 0.3em; }
+
+.oww-table-wrap {
+  overflow-x: auto;
+  margin-top: 0.6em;
+}
+
+.oww table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.78rem;
+}
+
+.oww th, .oww td {
+  text-align: left;
+  padding: 0.4em 0.6em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  vertical-align: top;
+}
+
+.oww th { font-weight: normal; color: #555; white-space: nowrap; }
+.oww td:first-child { white-space: nowrap; }
+.oww .r { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* tabs */
+.oww-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.oww-tabs button {
+  font-family: inherit;
+  font-size: 0.9rem;
+  background: none;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  padding: 0.5em 0.9em;
+  cursor: pointer;
+  color: #444;
+  margin-bottom: -1px;
+}
+
+.oww-tabs button[aria-selected="true"] {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #111;
+  font-weight: bold;
+}
+
+.oww section > h3:first-child { margin-top: 0.6em; }
+.oww-note { font-size: 0.8rem; color: #444; margin-bottom: 0.8em !important; }
+
+/* filters */
+.oww-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6em 1em;
+  align-items: end;
+  margin: 1em 0 0.4em;
+}
+
+.oww-filters label {
+  display: grid;
+  gap: 0.2em;
+  font-size: 0.72rem;
+  color: #444;
+}
+
+.oww-filters input, .oww-filters select {
+  font-family: inherit;
+  font-size: 0.8rem;
+  padding: 0.35em 0.5em;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: #fff;
+  min-height: 2.1em;
+}
+
+.oww-count { font-size: 0.75rem; color: #666; margin-bottom: 0.6em !important; }
+
+/* cards */
+.oww-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.2em;
+}
+
+.oww-mgrid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+
+.oww-card {
+  position: relative;
+  gap: 0.25em;
+  min-width: 0;
+}
+
+.oww-card:hover { background: rgba(255, 255, 255, 0.85); }
+.oww-card.is-stale { opacity: 0.8; }
+
+.oww-card .swatch-name { margin: 0.2em 0 0; font-size: 0.95rem; border: 0; padding: 0; }
+
+.oww-open {
+  all: unset;
+  cursor: pointer;
+}
+
+/* whole card is the hit target; the heading button stays the accessible control */
+.oww-open::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.oww-open:focus-visible { outline: 2px solid #1b2a85; outline-offset: 2px; }
+.oww-card a, .oww-card abbr { position: relative; z-index: 1; }
+.oww-card abbr { text-decoration: none; border-bottom: 1px dotted #999; }
+
+.oww-card .swatch-formula { font-size: 0.72rem; }
+
+/* watercolour drawdown swatch: black stripe first, pigment over it */
+.oww-swatch {
+  position: relative;
+  height: 84px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #fbfaf6;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  margin-bottom: 0.5em;
+}
+
+.oww-swatch.big { height: 120px; width: 220px; max-width: 100%; flex: none; }
+
+.oww-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 34%;
+  height: 22%;
+  background: #141414;
+}
+
+.oww-paint {
+  position: absolute;
+  inset: 0;
+}
+
+.oww-swatch.granulating::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: multiply;
+  opacity: 0.45;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.18 0 0 0 0 0.16 0 0 0 1.6 -0.55'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.oww-stats {
+  display: grid;
+  grid-template-columns: 4.6em 1fr;
+  gap: 0.15em 0.6em;
+  margin: 0.3em 0 0;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.oww-stats.wide { grid-template-columns: 7em 1fr; font-size: 0.8rem; }
+.oww-stats dt { color: #666; }
+.oww-stats dd { margin: 0; display: flex; align-items: center; gap: 0.4em; flex-wrap: wrap; min-width: 0; overflow-wrap: anywhere; }
+.oww-card .oww-stats dd { flex-wrap: nowrap; white-space: nowrap; }
+
+.oww-meter { display: inline-flex; gap: 2px; }
+.oww-meter i { width: 6px; height: 10px; background: rgba(0, 0, 0, 0.12); border-radius: 1px; }
+.oww-meter i.on { background: #333; }
+
+.oww-spark { display: inline-flex; align-items: center; gap: 0.3em; }
+.oww-spark svg { display: block; }
+.oww-delta { font-size: 0.65rem; color: #555; }
+
+.oww-chips { display: flex; flex-wrap: wrap; gap: 0.3em; margin-top: auto; padding-top: 0.4em; }
+
+.oww-chip {
+  font-size: 0.65rem;
+  padding: 0.15em 0.5em;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.07);
+  color: #444;
+  white-space: nowrap;
+}
+
+.oww-chip.warn { background: rgba(200, 120, 0, 0.15); color: #8a5300; }
+
+/* mosaics */
+.oww-mosaic {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  margin-bottom: 0.5em;
+}
+
+.oww-legend {
+  list-style: none;
+  margin: 0.3em 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.15em;
+  font-size: 0.72rem;
+}
+
+.oww-legend li { display: flex; align-items: center; gap: 0.45em; min-width: 0; }
+.oww-legend li span { margin-left: auto; color: #555; font-variant-numeric: tabular-nums; }
+.oww-legend li.more { color: #666; }
+.oww-legend i, .oww-dotswatch {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 2px;
+  flex: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.oww-dotswatch { margin-right: 0.45em; vertical-align: -0.1em; }
+
+.oww-stage { color: #666; }
+.oww-stage.on { color: #0a6b0a; }
+
+/* detail dialog */
+.oww-dialog {
+  width: min(920px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px);
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  background: linear-gradient(to bottom, #ffffff, #efefef);
+  font-family: 'Menlo', 'Courier New', monospace;
+  color: #1a1a1a;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.oww-dialog::backdrop { background: rgba(30, 30, 30, 0.35); }
+.oww-dialog #oww-detail-body { padding: 0 1.4em 1.4em; }
+.oww-close-row { display: flex; justify-content: flex-end; padding: 0.8em 1em 0; }
+
+.oww-close {
+  font-family: inherit;
+  font-size: 0.8rem;
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 0.3em 0.8em;
+  cursor: pointer;
+}
+
+.oww-detail-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2em;
+  align-items: flex-start;
+}
+
+.oww-detail-head > div { flex: 1 1 280px; min-width: 0; }
+.oww-detail-head .oww-mosaic { width: 220px; flex: none; }
+.oww-detail-head h2 { margin: 0 0 0.3em; font-size: 1.3rem; }
+.oww-detail-head p { margin: 0 0 0.3em; }
+
+.oww-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.4em 2em;
+}
+
+.oww-detail-grid section, .oww-dialog h3 { min-width: 0; }
+.oww-dialog h3 { font-size: 0.9rem; }
+.oww-outline { margin: 0; padding-left: 1.3em; font-size: 0.8rem; display: grid; gap: 0.3em; }
+.oww-outline ol { padding-left: 1.3em; margin-top: 0.25em; display: grid; gap: 0.2em; }
+.oww-plain { margin: 0; padding-left: 1.1em; font-size: 0.8rem; display: grid; gap: 0.2em; }
+.oww-checks { margin: 0.6em 0 0; padding: 0.5em 0.8em 0.5em 1.8em; font-size: 0.75rem; background: rgba(255, 240, 200, 0.7); border: 1px solid #c90; border-radius: 6px; }
+
+@media (max-width: 768px) {
+  .oww-grid, .oww-mgrid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.9em; }
+  .oww-swatch.big, .oww-detail-head .oww-mosaic { width: 100%; }
+  .oww-stats { grid-template-columns: 4.2em 1fr; }
+}

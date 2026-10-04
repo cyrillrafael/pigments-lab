@@ -1,0 +1,17 @@
+[
+  { "key": "meta",      "name": "Meta",                     "pigment": "Ultramarine (natural)", "hex": "#1b2a85", "palette": true },
+  { "key": "deepseek",  "name": "DeepSeek",                 "pigment": "Verdigris",             "hex": "#2f8f83" },
+  { "key": "qwen",      "name": "Alibaba Qwen",             "pigment": "Cinnabar / Vermilion",  "hex": "#d6381f", "palette": true },
+  { "key": "mistral",   "name": "Mistral AI",               "pigment": "Yellow ochre",          "hex": "#cc9a3a", "palette": true },
+  { "key": "google",    "name": "Google DeepMind",          "pigment": "Malachite",             "hex": "#3b7a57", "palette": true },
+  { "key": "openai",    "name": "OpenAI",                   "pigment": "Ivory black",           "hex": "#2b2926" },
+  { "key": "ai2",       "name": "Allen Institute for AI",   "pigment": "Woad",                  "hex": "#33507a", "palette": true },
+  { "key": "moonshot",  "name": "Moonshot AI",              "pigment": "Payne's grey",          "hex": "#4b5563" },
+  { "key": "zai",       "name": "Z.ai (Zhipu)",             "pigment": "Cobalt violet",         "hex": "#8e4585" },
+  { "key": "minimax",   "name": "MiniMax",                  "pigment": "Madder",                "hex": "#a0323c", "palette": true },
+  { "key": "microsoft", "name": "Microsoft",                "pigment": "Azurite",               "hex": "#3f6fa8", "palette": true },
+  { "key": "tii",       "name": "TII",                      "pigment": "Raw umber",             "hex": "#6f5434" },
+  { "key": "hf",        "name": "Hugging Face",             "pigment": "Indian yellow",         "hex": "#e3a018" },
+  { "key": "swissai",   "name": "Swiss AI",                 "pigment": "Green earth",           "hex": "#7a8b5a" },
+  { "key": "xiaomi",    "name": "Xiaomi",                   "pigment": "Cadmium orange",        "hex": "#e86a1c" }
+]

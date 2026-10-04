@@ -27,3 +27,19 @@ For `reports/`, same idea in `_data/reports.json`, with a `"title"` instead of r
 bundle install
 bundle exec jekyll serve
 ```
+
+## Weights (Open Weight Watch)
+
+`/weights/` reads open-weight language models as paint: each published weight set is a **pigment** (a lab's hue, rated for lightfastness = licence tier, transparency = training-data disclosure, granulation = mixture-of-experts), and each piece of software built from them is a **mosaic** whose tesserae are evidence of use (derivative repos in the runtime's native format, or models a Hugging Face Space declares).
+
+- `scripts/openweightwatch/registry/` — curated inputs: `labs.json` (lab → pigment), `pigments.json` (weight sets with openness fields and Hub ids or search hints), `runtimes.json` (GitHub projects → formats), `licenses.json`
+- `scripts/openweightwatch/fetch.mjs` — pulls live data from the Hugging Face Hub and GitHub and writes `weights/data/watch.json` (not committed). Zero dependencies, Node 20+. Per-item failures fall back to the last published values.
+- `weights.html` + `assets/js/weights.js` — the browseable page
+- `.github/workflows/jekyll.yml` rebuilds the site every 3 hours (`17 */3 * * *`) so the data lags by at most a few hours. An optional `HF_TOKEN` repository secret raises Hub rate limits. `weights-check.yml` runs the pipeline on feature branches without deploying.
+
+```
+node --test scripts/openweightwatch/*.test.mjs   # unit + end-to-end tests (no network)
+node scripts/openweightwatch/fetch.mjs           # live build into weights/data/watch.json
+```
+
+To add a weight set, append an entry to `registry/pigments.json`; to add a mosaic, append to `registry/runtimes.json`.

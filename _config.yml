@@ -14,6 +14,8 @@ nav_links:
     url: "/palette/"
   - title: "Materials"
     url: "/materials/"
+  - title: "Weights"
+    url: "/weights/"
   - title: "Sketchbooks"
     url: "/sketchbooks/"
   - title: "Workshop"
@@ -33,3 +35,4 @@ exclude:
   - _site
   - vendor
   - node_modules
+  - scripts

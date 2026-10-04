@@ -1,0 +1,21 @@
+{
+  "apache-2.0": { "name": "Apache 2.0", "cls": "osi" },
+  "mit":        { "name": "MIT", "cls": "osi" },
+  "mod-mit":    { "name": "Modified MIT", "cls": "cond",
+                  "note": "MIT plus a display-attribution requirement for products above 100M monthly users or US$20M monthly revenue." },
+  "llama2":     { "name": "Llama 2 Community", "cls": "restr",
+                  "note": "Acceptable-use policy; services above 700M monthly users need a separate licence from Meta." },
+  "llama3":     { "name": "Llama 3 Community", "cls": "restr",
+                  "note": "Acceptable-use policy, 700M monthly-user threshold, “Built with Llama” attribution." },
+  "llama4":     { "name": "Llama 4 Community", "cls": "restr",
+                  "note": "Acceptable-use policy, 700M monthly-user threshold, “Built with Llama” attribution." },
+  "gemma":      { "name": "Gemma Terms of Use", "cls": "restr",
+                  "note": "Prohibited-use policy flows down to derivatives and hosted services." },
+  "qwen":       { "name": "Qwen License", "cls": "restr",
+                  "note": "Services above 100M monthly users need a separate licence from Alibaba Cloud." },
+  "falcon-180": { "name": "Falcon-180B TII License", "cls": "restr",
+                  "note": "Acceptable-use policy; offering the model as a hosted service needs separate permission." },
+  "deepseek":   { "name": "DeepSeek Model License", "cls": "restr",
+                  "note": "Use-based restrictions in the style of OpenRAIL that bind downstream users." },
+  "unverified": { "name": "Unverified", "cls": "unk" }
+}
