@@ -20,6 +20,8 @@ nav_links:
     url: "/workshop/"
   - title: "Reports"
     url: "/reports/"
+  - title: "FM-1"
+    url: "/fm1/"
   - title: "Admin"
     url: "/admin/"
   - title: "Portfolio ↗"
@@ -33,3 +35,5 @@ exclude:
   - _site
   - vendor
   - node_modules
+  - tests
+  - tools
